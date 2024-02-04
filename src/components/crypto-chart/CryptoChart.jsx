@@ -3,6 +3,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Chart as ChartJS } from 'chart.js/auto';
 import { Bar, Line } from 'react-chartjs-2';
 import CurrencyContext from '../../context/CurrencyContext';
+import { theme } from '../../theme';
+import { useTheme } from '@emotion/react';
 
 
 const CryptoChart = () => {
@@ -33,6 +35,7 @@ const CryptoChart = () => {
                 id: 1,
                 label: '',
                 data: yAxisData,
+                borderColor: '#f04f03'
               }
             ],
           }}
@@ -41,7 +44,26 @@ const CryptoChart = () => {
               point : {
                 radius: 1
               }
-            }
+            },
+            scales: {
+              x: {
+                gridLines: {
+                  color: '#f04f03', // Set the color of the x-axis grid lines
+                },
+                ticks: {
+                  color: '#f04f03', // X-axis label color
+                },
+              },
+              y: {
+                gridLines: {
+                  color: '#f04f03', // Set the color of the x-axis grid lines
+                },
+                ticks: {
+                  color: '#f04f03', // Y-axis label color
+                },
+              },
+            },
+            backgroundColor: 'black'
           }}
         />
     )
@@ -58,8 +80,24 @@ const CryptoChart = () => {
                 id: 1,
                 label: '',
                 data: yAxisData,
+                backgroundColor: '#f04f03'
               }
             ],
+          }}
+          options={{
+            scales: {
+              x: {
+                ticks: {
+                  color: '#f04f03', // X-axis label color
+                },
+              },
+              y: {
+                ticks: {
+                  color: '#f04f03', // Y-axis label color
+                },
+              },
+            },
+            backgroundColor: 'black'
           }}
         />
     )
@@ -129,6 +167,21 @@ const CryptoChart = () => {
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
           <InputLabel id="demo-simple-select-standard-label">Chart Type</InputLabel>
           <Select
+            sx={{
+              color: (theme) => theme.palette.appSecondary.main,
+              '.MuiOutlinedInput-notchedOutline': {
+                borderColor: (theme) => theme.palette.appSecondary.main,
+              },
+              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                borderColor: (theme) => theme.palette.appSecondary.main,
+              },
+              '&:hover .MuiOutlinedInput-notchedOutline': {
+                borderColor: (theme) => theme.palette.appSecondary.main,
+              },
+              '.MuiSvgIcon-root ': {
+                fill: (theme) => theme.palette.appSecondary.main,
+              }
+            }}
             labelId="demo-simple-select-standard-label"
             id="demo-simple-select-standard"
             value={chartType}
@@ -144,18 +197,12 @@ const CryptoChart = () => {
       
       <Box sx={{ height: '90%', width: '100%' }}>
         {
-          // if (xAxisData === [] && yAxisData === []) {
-          //   return (
-          //     <CircularProgress />
-          //   )
-          // }
-
           xAxisData.length === 0 && yAxisData.length === 0 ? showCircularProgress() : 
           chartType === 'line' ?  lineChart() : barChart()
         }
       </Box>
       <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-        <ButtonGroup variant="text" aria-label="text button group">
+        <ButtonGroup variant="text" aria-label="text button group" color='appSecondary'>
           <Button onClick={ () => { setNumOfdays(1) } }>1 Day</Button>
           <Button onClick={ () => { setNumOfdays(7) } }>7 Days</Button>
           <Button onClick={ () => { setNumOfdays(15) } }>15 Days</Button>

@@ -1,25 +1,29 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import './App.css'
 import Header from './components/Header'
 import { ThemeProvider } from '@emotion/react'
 import { theme } from './theme'
-import CryptoTable from './components/crypto-table/CryptoTable'
+import { dTheme } from './theme'
 import CurrencyContextProvider from './context/CurrencyContextProvider'
 import { Box, CssBaseline } from '@mui/material'
 import { Outlet } from 'react-router-dom'
+import ThemeContext from './context/ThemeContext'
 
 function App() {
 
+  const { darkTheme } = useContext(ThemeContext);
+
   return (
     <>
-      <CssBaseline />
-      <CurrencyContextProvider>
-        <Header />
-        <Box sx={{height: '100%'}}>
-          {/* <CryptoTable /> */}
-          <Outlet />
-        </Box>
-      </CurrencyContextProvider>
+      <ThemeProvider theme={darkTheme == true ? dTheme : theme}>
+        <CssBaseline />
+        <CurrencyContextProvider>
+          <Header />
+          <Box sx={{ height: '90vh', backgroundColor: (theme) => theme.palette.appPrimary.main }}>
+            <Outlet />
+          </Box>
+        </CurrencyContextProvider>
+      </ThemeProvider>
     </>
   )
 }

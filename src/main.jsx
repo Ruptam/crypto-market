@@ -6,6 +6,8 @@ import { CssBaseline } from '@mui/material'
 import { Route, RouterProvider, Routes, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import CryptoDetail from './components/crypto-detail/CryptoDetail.jsx'
 import CryptoTable from './components/crypto-table/CryptoTable.jsx'
+import { ThemeContext } from '@emotion/react'
+import ThemeContextProvider from './context/ThemeContextProvider.jsx'
 
 const router = createBrowserRouter([
   {
@@ -28,5 +30,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     
   //   <App />
   // </React.StrictMode>,
-  <RouterProvider router={router} />
+  <ThemeContextProvider>
+    <RouterProvider router={router} />
+  </ThemeContextProvider>
+  
 )

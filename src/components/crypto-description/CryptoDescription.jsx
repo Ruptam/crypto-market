@@ -4,6 +4,7 @@ import XIcon from '@mui/icons-material/X';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ArticleIcon from '@mui/icons-material/Article';
+import { theme } from '../../theme';
 
 const CryptoDescription = (props) => {
 
@@ -13,7 +14,7 @@ const CryptoDescription = (props) => {
         if (selectedCoinDetail.links.facebook_username !== undefined && selectedCoinDetail.links.facebook_username !== '') {
             const fbUrl = `https://www.facebook.com/${selectedCoinDetail.links.facebook_username}`;
             return (
-                <FacebookIcon color='primary' onClick={ () => {window.open(fbUrl, '_blank', 'noopener, noreferrer');
+                <FacebookIcon color='appSecondary' onClick={ () => {window.open(fbUrl, '_blank', 'noopener, noreferrer');
             } }/>
             )
         }
@@ -23,7 +24,7 @@ const CryptoDescription = (props) => {
         if (selectedCoinDetail.links.repos_url.github.length > 0) {
             const githubUrl = selectedCoinDetail.links.repos_url.github[0];
             return (
-                <GitHubIcon color='primary' onClick={ () => {window.open(githubUrl, '_blank', 'noopener, noreferrer');
+                <GitHubIcon color='appSecondary' onClick={ () => {window.open(githubUrl, '_blank', 'noopener, noreferrer');
             } }/>
             )
         }
@@ -33,7 +34,7 @@ const CryptoDescription = (props) => {
         if (selectedCoinDetail.links.twitter_screen_name !== undefined && selectedCoinDetail.links.twitter_screen_name !== '') {
             const twitterUrl = `https://www.x.com/${selectedCoinDetail.links.twitter_screen_name}`;
             return (
-                <XIcon color='primary' onClick={ () => {window.open(twitterUrl, '_blank', 'noopener, noreferrer');
+                <XIcon color='appSecondary' onClick={ () => {window.open(twitterUrl, '_blank', 'noopener, noreferrer');
             } }/>
             )
         }
@@ -44,7 +45,7 @@ const CryptoDescription = (props) => {
         if (selectedCoinDetail.links.whitepaper !== undefined && selectedCoinDetail.links.whitepaper !== '') {
             const articleUrl = `${selectedCoinDetail.links.whitepaper}`;
             return (
-                <ArticleIcon color='primary' onClick={ () => {window.open(articleUrl, '_blank', 'noopener, noreferrer');
+                <ArticleIcon color='appSecondary' onClick={ () => {window.open(articleUrl, '_blank', 'noopener, noreferrer');
             } }/>
             )
         }
@@ -53,11 +54,25 @@ const CryptoDescription = (props) => {
     const showCoinImage = () => {
         if (selectedCoinDetail.image != undefined) {
             return (
-                <>
-                    <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '5%', flexDirection: 'column', alignItems: 'center' }}>
+                <Box>
+                    <Box sx={{ 
+                        width: '100%', 
+                        display: 'flex', 
+                        justifyContent: 'center', 
+                        padding: '5%', 
+                        flexDirection: 'column', 
+                        alignItems: 'center'
+                    }}>
                         <img src={selectedCoinDetail.image.large} style={{ height: '20%', width: '30%' }} />
                         <Typography variant="h3" component="h2" >
-                            <Link href={selectedCoinDetail.links.homepage[0]} underline="none" target='_blank'>{selectedCoinDetail.name}</Link>
+                            <Link 
+                                href={selectedCoinDetail.links.homepage[0]} 
+                                underline="none" 
+                                target='_blank'
+                                color={ (theme) => theme.palette.appSecondary.main }
+                            >
+                                {selectedCoinDetail.name}
+                            </Link>
                         </Typography>
                         <Box sx={{ display: 'flex'}}>
                             {
@@ -76,27 +91,27 @@ const CryptoDescription = (props) => {
                         
                     </Box>
                     <Box sx={{ padding: '2%'}}>
-                        <Typography variant="body2" gutterBottom color='secondary'>
+                        <Typography variant="body2" gutterBottom color={(theme) => theme.palette.appSecondary.main}>
                             {selectedCoinDetail.description.en.split('.')[0]}.
                         </Typography>
                         <Box sx={{ display: 'flex' }}>
-                            <Typography variant="h4" gutterBottom color='primary'>
+                            <Typography variant="h4" gutterBottom color={(theme) => theme.palette.appSecondary.main}>
                                 Rank:
                             </Typography>
-                            <Typography variant="h4" gutterBottom color='secondary'>
+                            <Typography variant="h4" gutterBottom color={(theme) => theme.palette.appSecondary.main}>
                                 {selectedCoinDetail.market_cap_rank}
                             </Typography>
                         </Box>
                         <Box sx={{ display: 'flex' }}>
-                            <Typography variant="h4" gutterBottom color='primary'>
+                            <Typography variant="h4" gutterBottom color={(theme) => theme.palette.appSecondary.main}>
                                 Current Price:
                             </Typography>
-                            <Typography variant="h4" gutterBottom color='secondary'>
+                            <Typography variant="h4" gutterBottom color={(theme) => theme.palette.appSecondary.main}>
                                 {selectedCoinDetail.market_data.current_price.ars}
                             </Typography>
                         </Box>
                     </Box>
-                </>
+                </Box>
                 
             )
         } 
@@ -122,11 +137,11 @@ const CryptoDescription = (props) => {
             }); 
     },[])
   return (
-    <>
+    <Box>
         {
             showCoinImage()
         }
-    </>
+    </Box>
   )
 }
 

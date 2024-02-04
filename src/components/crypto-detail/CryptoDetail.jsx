@@ -8,16 +8,9 @@ const CryptoDetail = () => {
 
   const location = useLocation();
 
-  // useEffect(() => {
-  //   console.log(location.state.selectedCoin);
-  // },[])
-
   return (
     <>
-      {/* {
-        console.log('location.state ', location.state.selectedCoin)
-      } */}
-      <Box sx={{ display: 'flex'}}>
+      <Box sx={{ display: 'flex', backgroundColor: (theme) => theme.palette.appPrimary.main }}>
         <Box sx={{ width: '40%' }}>
           <CryptoDescription selectedCoin={location.state.selectedCoin}/>
         </Box>

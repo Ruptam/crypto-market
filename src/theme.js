@@ -2,38 +2,30 @@ import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
     palette: {
-        common: {
-            black: '#b7190f',
-            white: '#c3d3d1'
+        appPrimary: {
+            main: '#ffffff',
         },
-        primary: {
-            main: '#1c1919',
-            light: '#9d92f0',
-            dark: '#bc4a3c'
+        appSecondary: {
+            main: '#f04f03',
+            light: '#fde5b7'
         },
-        secondary: {
-            main: '#faf6f6',
-        },
-        col: {
-            main: '#a53662'
+        tablePrimary: {
+            main: '#ffffff',
         }
     }
 })
 
-export const selectTheme = createTheme({
-    components: {
-      MuiSelect: {
-        styleOverrides: {
-          // Customize the Select styles here
-          // For example:
-          root: {
-            backgroundColor: 'transparent',
-          },
-          icon: {
-            color: 'darkblue',
-          },
-          
+export const dTheme = createTheme({
+    palette: {
+        appPrimary: {
+            main: '#121f33',
         },
-      },
-    },
-  });
+        appSecondary: {
+            main: '#f04f03',
+            light: '#fde5b7'
+        },
+        tablePrimary: {
+            main: '#ffffff',
+        }
+    }
+})

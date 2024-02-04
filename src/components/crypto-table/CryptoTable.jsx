@@ -2,13 +2,15 @@ import { Box, LinearProgress, Paper, Table, TableBody, TableCell, TableContainer
 import React, { useContext, useEffect, useState } from 'react'
 import CurrencyContext from '../../context/CurrencyContext';
 import { useNavigate } from 'react-router-dom';
-import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import ThemeContext from '../../context/ThemeContext';
+// const commaNumber = require('comma-number')
+
 
 const CryptoTable = () => {
 
     const navigate = useNavigate();
     const { currency } = useContext(CurrencyContext);
+    const { darkTheme } = useContext(ThemeContext);
     const [coins, setCoins] = useState([]);
     const [perPageCoins, setPerPageCoins] = useState([]);
     const [page, setPage] = useState(0);
@@ -33,15 +35,15 @@ const CryptoTable = () => {
         if (coins.length > 0) {
             return (
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
+                    <TableHead  >
+                        <TableRow sx={{ backgroundColor: (theme) => theme.palette.appSecondary.main }}>
                             <TableCell ></TableCell>
-                            <TableCell >Name</TableCell>
-                            <TableCell >Price ({currency})</TableCell>
-                            <TableCell >Market Cap</TableCell>
+                            <TableCell sx={{ color: (theme) => theme.palette.tablePrimary.main }}>Name</TableCell>
+                            <TableCell sx={{ color: (theme) => theme.palette.tablePrimary.main }}>Price ({currency})</TableCell>
+                            <TableCell sx={{ color: (theme) => theme.palette.tablePrimary.main }}>Market Cap</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    <TableBody sx={{ backgroundColor: (theme) => theme.palette.appSecondary.light }}>
                         {
                             perPageCoins.map(coin => (
                                 <TableRow
@@ -54,11 +56,15 @@ const CryptoTable = () => {
                                     <TableCell component="th" scope="row" align="right">
                                         <img src={coin.image} style={{ height: 30, width: 30 }} />
                                     </TableCell>
-                                    <TableCell >{coin.name}</TableCell>
-                                    <TableCell style={{display: 'flex', justifyContent: 'flex-start'}}>
-                                        {currency === 'INR' ? <CurrencyRupeeIcon fontSize='small'/> : <AttachMoneyIcon fontSize='small'/> } {coin.current_price}
+
+                                    <TableCell>
+                                        {coin.name}
                                     </TableCell>
-                                    <TableCell >{coin.market_cap}</TableCell>
+                                    <TableCell >
+                                        {/* {currency === 'INR' ? <CurrencyRupeeIcon fontSize='small'/> : <AttachMoneyIcon fontSize='small'/> }  */}
+                                        {coin.current_price.toLocaleString()}
+                                    </TableCell>
+                                    <TableCell >{coin.market_cap.toLocaleString()}</TableCell>
                                 </TableRow>
                             ))
                         }
@@ -78,6 +84,9 @@ const CryptoTable = () => {
         if(coins.length > 0) {
             return (
                 <TablePagination
+                    sx={{
+                        color: '#f04f03'
+                    }}
                     component="div"
                     count={100}
                     page={page}
@@ -105,8 +114,17 @@ const CryptoTable = () => {
 
     return (
         
-        <Box sx={{ width: '100%', height:'10%', display: 'flex', flexDirection:'column', alignItems: 'center', backgroundColor: '#7fa0e3', padding: '2%'}}>
-            <TableContainer component={Paper} sx={{ width: '80%', height: '10%', padding: '2%' }}>
+        <Box 
+            sx={{ 
+                width: '100%', 
+                display: 'flex', 
+                flexDirection:'column', 
+                alignItems: 'center', 
+                backgroundColor: (theme) => theme.palette.appPrimary.main,
+                padding: '2%'
+            }}
+        >
+            <TableContainer component={Paper} sx={{ width: '80%', padding: '2%', backgroundColor: (theme) => theme.palette.appPrimary.main }}>
                 {
                     showTableOrProgress()
                 }
